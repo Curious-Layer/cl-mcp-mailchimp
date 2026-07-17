@@ -1,8 +1,6 @@
 """Automations group: list_automations, get_automation_info, list_automated_emails,
 get_workflow_email_info, list_automated_email_subscribers, get_automated_email_subscriber."""
 
-from __future__ import annotations
-
 import logging
 
 from fastmcp import FastMCP
@@ -24,7 +22,7 @@ from ..schemas import (
     ListAutomationsData,
     ListAutomationsResult,
 )
-from ..service import get_service
+from .. import service
 from ._helpers import _err, _handle_request_exc
 
 logger = logging.getLogger("mailchimp-mcp.tools.automations")
@@ -73,7 +71,7 @@ def register_automations_tools(mcp: FastMCP) -> None:
             query_params["status"] = status
 
         try:
-            client = get_service()
+            client = service.get_service()
             raw = client.automations.list(**query_params)
             tlog.success()
             return ListAutomationsResult(success=True, statusCode=200, data=ListAutomationsData(**raw))
@@ -99,7 +97,7 @@ def register_automations_tools(mcp: FastMCP) -> None:
             query_params["exclude_fields"] = exclude_fields
 
         try:
-            client = get_service()
+            client = service.get_service()
             raw = client.automations.get(workflow_id, **query_params)
             tlog.success()
             return GetAutomationInfoResult(success=True, statusCode=200, data=GetAutomationInfoData(**raw))
@@ -116,7 +114,7 @@ def register_automations_tools(mcp: FastMCP) -> None:
     ) -> ListAutomatedEmailsResult:
         tlog = ToolLogger(logger, "list_automated_emails")
         try:
-            client = get_service()
+            client = service.get_service()
             raw = client.automations.list_all_workflow_emails(workflow_id)
             tlog.success()
             return ListAutomatedEmailsResult(success=True, statusCode=200, data=ListAutomatedEmailsData(**raw))
@@ -146,7 +144,7 @@ def register_automations_tools(mcp: FastMCP) -> None:
         """
         tlog = ToolLogger(logger, "get_workflow_email_info")
         try:
-            client = get_service()
+            client = service.get_service()
             raw = client.automations.get_workflow_email(workflow_id, workflow_email_id)
             tlog.success()
             return GetWorkflowEmailInfoResult(success=True, statusCode=200, data=GetWorkflowEmailInfoData(**raw))
@@ -164,7 +162,7 @@ def register_automations_tools(mcp: FastMCP) -> None:
     ) -> ListAutomatedEmailSubscribersResult:
         tlog = ToolLogger(logger, "list_automated_email_subscribers")
         try:
-            client = get_service()
+            client = service.get_service()
             raw = client.automations.get_workflow_email_subscriber_queue(workflow_id, workflow_email_id)
             tlog.success()
             return ListAutomatedEmailSubscribersResult(
@@ -185,7 +183,7 @@ def register_automations_tools(mcp: FastMCP) -> None:
     ) -> GetAutomatedEmailSubscriberResult:
         tlog = ToolLogger(logger, "get_automated_email_subscriber")
         try:
-            client = get_service()
+            client = service.get_service()
             raw = client.automations.get_workflow_email_subscriber(
                 workflow_id, workflow_email_id, subscriber_hash,
             )
