@@ -426,7 +426,12 @@ class AddTemplateResult(ToolResult):
 
 
 class UpdateTemplateData(TemplateData):
-    """Updated template — same shape as an item in ListTemplatesData."""
+    """Updated template — same shape as an item in ListTemplatesData, plus
+    before/after state per the MewCP audit rule requiring UPDATE tools to
+    return both."""
+
+    before: GetTemplateInfoData | None = None
+    after: GetTemplateInfoData | None = None
 
 
 class UpdateTemplateResult(ToolResult):
