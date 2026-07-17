@@ -2,7 +2,6 @@
 
 from mailchimp_marketing.api_client import ApiClientError
 
-from ..logging_utils import ToolLogger
 from ..schemas import ToolError
 
 
