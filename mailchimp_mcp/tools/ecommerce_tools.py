@@ -23,7 +23,7 @@ from ..schemas import (
     GetOrderInfoResult,
     GetOrderInfoData,
 )
-from ._helpers import _err, _handle_request_exc
+from ._helpers import _handle_request_exc
 
 logger = logging.getLogger("mailchimp-mcp.tools.ecommerce")
 
