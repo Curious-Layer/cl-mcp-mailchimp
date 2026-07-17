@@ -147,7 +147,13 @@ def register_templates_tools(mcp: FastMCP) -> None:
 
     @mcp.tool(
         name="update_template",
-        description="Update the name, HTML, or folder of an existing template",
+        description=(
+            "Updates the name, HTML, or folder of an existing Classic template. "
+            "This overwrites the current name and HTML with the values you provide (folder_id "
+            "is only changed if given) — the original state is not stored by the API after "
+            "the call. The response includes both the before and after state so you have a "
+            "full record of what changed."
+        ),
         annotations=ToolAnnotations(readOnlyHint=False, destructiveHint=False, openWorldHint=True),
     )
     def update_template(

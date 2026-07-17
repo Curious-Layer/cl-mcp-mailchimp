@@ -430,8 +430,8 @@ class UpdateTemplateData(TemplateData):
     before/after state per the MewCP audit rule requiring UPDATE tools to
     return both."""
 
-    before: GetTemplateInfoData | None = None
-    after: GetTemplateInfoData | None = None
+    before: GetTemplateInfoData
+    after: GetTemplateInfoData
 
 
 class UpdateTemplateResult(ToolResult):
